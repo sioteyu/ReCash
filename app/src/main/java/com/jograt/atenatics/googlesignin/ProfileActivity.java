@@ -27,6 +27,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
+
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
@@ -37,12 +45,20 @@ public class ProfileActivity extends AppCompatActivity
     private TextView name;
     private TextView email;
     private static final int LOCATION_REQUEST_CODE = 1;
+    private FirebaseAuth mAuth;
+    private StorageReference mStorageRef;
+    private StorageReference storageReference;
+    private DatabaseReference db;
+    private UserBean bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_profile);
+
+        db = FirebaseDatabase.getInstance().getReference("users");
+        mAuth = FirebaseAuth.getInstance();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -102,15 +118,11 @@ public class ProfileActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction  = fragmentManager.beginTransaction();
             transaction.replace(R.id.fragment, fragment).commit();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_coins) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_history) {
 
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
@@ -143,6 +155,28 @@ public class ProfileActivity extends AppCompatActivity
             bmImage = (ImageView)findViewById(R.id.imageView);
             email = (TextView)findViewById(R.id.email);
             name = (TextView)findViewById(R.id.name);
+
+
+            db.child(getIntent().getExtras().getString("id")).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()){
+                        bean = new UserBean(dataSnapshot.child("user")  .getValue().toString(),
+                                dataSnapshot.child("email").getValue().toString(),
+                                Integer.parseInt(dataSnapshot.child("cash").getValue().toString()),
+                                dataSnapshot.child("id").getValue().toString());
+
+                    }else{
+                        bean = new UserBean(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("email"), 0, getIntent().getExtras().getString("id"));
+                        db.child(bean.getId()).setValue(bean);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
 
             name.setText(getIntent().getExtras().getString("name"));
             email.setText(getIntent().getExtras().getString("email"));
