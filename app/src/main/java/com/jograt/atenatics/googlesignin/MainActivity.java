@@ -1,5 +1,9 @@
 package com.jograt.atenatics.googlesignin;
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
     final static int RC_SIGN_IN = 1;
+    private static final int LOCATION_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +63,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
-        startActivity(intent);
+        if(hasLocationPermission()){
+            Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(mapsIntent);
+        }else{
+            requestLocationPermission();
+        }
 
+    }
+
+    private boolean hasLocationPermission(){
+        int result = 0;
+
+        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
+
+        for(String permission: permissions){
+            result = checkCallingOrSelfPermission(permission);
+
+            if(result != PackageManager.PERMISSION_GRANTED){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void requestLocationPermission(){
+        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            requestPermissions(permissions, LOCATION_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode){
+            case LOCATION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                    startActivity(mapsIntent);
+                }else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                            Toast.makeText(this, "Location Access Denied! Current location couldn't be found.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                break;
+        }
     }
 
     private void signIn() {
