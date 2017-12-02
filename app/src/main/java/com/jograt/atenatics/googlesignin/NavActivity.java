@@ -39,7 +39,7 @@ import org.w3c.dom.Text;
 
 import java.io.InputStream;
 
-public class ProfileActivity extends AppCompatActivity
+public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView name;
@@ -55,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        setTitle("");
 
         db = FirebaseDatabase.getInstance().getReference("users");
         mAuth = FirebaseAuth.getInstance();
@@ -94,15 +96,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -122,6 +116,11 @@ public class ProfileActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_history) {
 
+        } else if (id == R.id.nav_profile){
+            ProfileFragment fragment = new ProfileFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction  = fragmentManager.beginTransaction();
+            transaction.replace(R.id.fragment, fragment).commit();
         } else if (id == R.id.nav_share) {
 
         }
@@ -129,6 +128,10 @@ public class ProfileActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public UserBean getBean(){
+        return bean;
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -164,10 +167,15 @@ public class ProfileActivity extends AppCompatActivity
                         bean = new UserBean(dataSnapshot.child("user")  .getValue().toString(),
                                 dataSnapshot.child("email").getValue().toString(),
                                 Integer.parseInt(dataSnapshot.child("cash").getValue().toString()),
-                                dataSnapshot.child("id").getValue().toString());
+                                dataSnapshot.child("id").getValue().toString(),
+                                getIntent().getExtras().getString("url"));
 
                     }else{
-                        bean = new UserBean(getIntent().getExtras().getString("name"), getIntent().getExtras().getString("email"), 0, getIntent().getExtras().getString("id"));
+                        bean = new UserBean(getIntent().getExtras().getString("name"),
+                                getIntent().getExtras().getString("email"),
+                                0,
+                                getIntent().getExtras().getString("id"),
+                                getIntent().getExtras().getString("url"));
                         db.child(bean.getId()).setValue(bean);
                     }
                 }
