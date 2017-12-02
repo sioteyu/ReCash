@@ -13,4 +13,34 @@
         android:layout_height="match_parent"
         tools:context="com.jograt.atenatics.googlesignin.MapsFragment" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:translationZ="5dp">
+
+        <Button
+            android:id="@+id/buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#F2B800"
+            android:text="Buy"
+            android:textColor="#fff"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="#127159"
+            android:text="Sell"
+            android:textColor="#fff"
+            android:textSize="30dp" />
+    </LinearLayout>
+
 </FrameLayout>
