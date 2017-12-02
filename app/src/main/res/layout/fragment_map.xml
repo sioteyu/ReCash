@@ -1,17 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jograt.atenatics.googlesignin.MapFragment">
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.jograt.atenatics.googlesignin.MapsFragment" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +11,16 @@
         android:layout_gravity="bottom"
         android:orientation="horizontal"
         android:translationZ="5dp">
+
+        <Button
+            android:id="@+id/mail"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/mail"
+            android:text="" />
 
         <Button
             android:id="@+id/buy"
@@ -41,6 +43,21 @@
             android:text="Sell"
             android:textColor="#fff"
             android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/profile"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/profile" />
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.jograt.atenatics.googlesignin.MapsFragment" />
 
 </FrameLayout>

@@ -1,6 +1,8 @@
 package com.jograt.atenatics.googlesignin;
 
 import android.*;
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,16 +43,9 @@ import org.w3c.dom.Text;
 
 import java.io.InputStream;
 
-public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class NavActivity extends AppCompatActivity{
 
-    private TextView name;
-    private TextView email;
     private static final int LOCATION_REQUEST_CODE = 1;
-    private TextView coins;
-    private FirebaseAuth mAuth;
-    private StorageReference mStorageRef;
-    private StorageReference storageReference;
     private DatabaseReference db;
     private UserBean bean;
     private boolean doubleBackToExitPressedOnce = false;
@@ -59,22 +55,7 @@ public class NavActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        setTitle("");
-
         db = FirebaseDatabase.getInstance().getReference("users");
-        mAuth = FirebaseAuth.getInstance();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         new DownloadImageTask((ImageView) findViewById(R.id.imageView))
                 .execute(getIntent().getExtras().getString("url"));
@@ -97,50 +78,6 @@ public class NavActivity extends AppCompatActivity
                 doubleBackToExitPressedOnce=false;
             }
         }, 2000);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_map) {
-            MapFragment fragment = new MapFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction  = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment, fragment).commit();
-        } else if (id == R.id.nav_coins) {
-
-        } else if (id == R.id.nav_history) {
-
-        } else if (id == R.id.nav_share) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public UserBean getBean(){
@@ -169,10 +106,6 @@ public class NavActivity extends AppCompatActivity
 
         protected void onPostExecute(Bitmap result) {
             bmImage = (ImageView)findViewById(R.id.imageView);
-            email = (TextView)findViewById(R.id.email);
-            name = (TextView)findViewById(R.id.name);
-            coins= (TextView)findViewById(R.id.coins);
-
 
             db.child(getIntent().getExtras().getString("id")).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -192,9 +125,6 @@ public class NavActivity extends AppCompatActivity
                                 getIntent().getExtras().getString("url"));
                         db.child(bean.getId()).setValue(bean);
                     }
-                    name.setText(getIntent().getExtras().getString("name"));
-                    email.setText(getIntent().getExtras().getString("email"));
-                    coins.setText("ReCash Coins: " + bean.getCash());
                 }
 
                 @Override
@@ -203,10 +133,11 @@ public class NavActivity extends AppCompatActivity
                 }
             });
 
-            bmImage.setImageBitmap(result);
+
 
             if(hasLocationPermission()){
                 MapFragment fragment = new MapFragment();
+                fragment.setArguments(getIntent().getExtras());
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction transaction  = fragmentManager.beginTransaction();
                 transaction.replace(R.id.fragment, fragment).commit();
