@@ -22,7 +22,12 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+<<<<<<< HEAD
     implementation 'com.google.android.gms:play-services-maps:10.2.0'
+=======
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+>>>>>>> 71a9c81b73b50976e6e8dde9fdcffa49d083596e
     compile 'com.google.firebase:firebase-core:10.2.0'
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.android.gms:play-services-auth:10.2.0'
@@ -33,4 +38,11 @@ dependencies {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 71a9c81b73b50976e6e8dde9fdcffa49d083596e
 apply plugin: 'com.google.gms.google-services'

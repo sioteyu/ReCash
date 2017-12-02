@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton mGooglebtn;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthlistener;
     final static int RC_SIGN_IN = 1;
     private static final int LOCATION_REQUEST_CODE = 1;
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setTitle("ReCash");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -49,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
         mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                @Override
-                public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                    Toast.makeText(MainActivity.this, "Connection eRROR", Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Toast.makeText(MainActivity.this, "Connection eRROR", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+
         mGooglebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +124,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -135,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
         //photo url
         String photoUrl = mAuth.getCurrentUser().getPhotoUrl().toString();                                                  
 
@@ -148,9 +157,15 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.v("Sign in", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                            Toast.makeText(MainActivity.this, "You are : " + user,
-                                    Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("url", mAuth.getCurrentUser().getPhotoUrl().toString());
+                            bundle.putString("name", mAuth.getCurrentUser().getDisplayName());
+                            bundle.putString("email", mAuth.getCurrentUser().getEmail());
+
+                            intent.putExtras(bundle);
+
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Sign in", "signInWithCredential:failure", task.getException());
