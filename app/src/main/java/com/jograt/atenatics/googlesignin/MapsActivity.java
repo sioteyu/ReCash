@@ -1,3 +1,4 @@
+/*
 package com.jograt.atenatics.googlesignin;
 
 import android.app.AlertDialog;
@@ -57,8 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         //Dynamic markers based from firebase
-        //***please add "latitude" and "longitude" in firebase database :D*****
-        /*
+        /*/
+/***please add "latitude" and "longitude" in firebase database :D*****
+        */
+/*
         Firebase locationRef = mRootRef.child("your reference");
         locationRef.addValueEventListener(new com.firebase.client.ValueEventListener() {
 
@@ -78,6 +81,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     });
-         */
+         *//*
+
     }
 }
+*/

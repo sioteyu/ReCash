@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">GoogleSignIn</string>
-<<<<<<< HEAD
     <string name="title_activity_maps">Map</string>
-=======
     <string name="title_activity_profile">ProfileActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -12,5 +10,4 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
->>>>>>> 71a9c81b73b50976e6e8dde9fdcffa49d083596e
 </resources>

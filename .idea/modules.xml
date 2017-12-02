@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://C:\Users\Michael\Documents\Programming\UHACK\GoogleSignIn.iml" filepath="C:\Users\Michael\Documents\Programming\UHACK\GoogleSignIn.iml" />
       <module fileurl="file://$PROJECT_DIR$/UHACK.iml" filepath="$PROJECT_DIR$/UHACK.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/ReCash.iml" filepath="$PROJECT_DIR$/ReCash.iml" />
->>>>>>> 71a9c81b73b50976e6e8dde9fdcffa49d083596e
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Michael\Documents\Programming\UHACK\app\app.iml" filepath="C:\Users\Michael\Documents\Programming\UHACK\app\app.iml" />
     </modules>
   </component>
 </project>

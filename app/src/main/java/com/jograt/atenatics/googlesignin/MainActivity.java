@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthlistener;
     final static int RC_SIGN_IN = 1;
-    private static final int LOCATION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,56 +66,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(hasLocationPermission()){
-            Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
-            startActivity(mapsIntent);
-        }else{
-            requestLocationPermission();
-        }
-
     }
 
-    private boolean hasLocationPermission(){
-        int result = 0;
 
-        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
-
-        for(String permission: permissions){
-            result = checkCallingOrSelfPermission(permission);
-
-            if(result != PackageManager.PERMISSION_GRANTED){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void requestLocationPermission(){
-        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION};
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            requestPermissions(permissions, LOCATION_REQUEST_CODE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        switch (requestCode){
-            case LOCATION_REQUEST_CODE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    Intent mapsIntent = new Intent(MainActivity.this, MapsActivity.class);
-                    startActivity(mapsIntent);
-                }else {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                            Toast.makeText(this, "Location Access Denied! Current location couldn't be found.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-                break;
-        }
-    }
 
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
@@ -146,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
         //photo url
-        String photoUrl = mAuth.getCurrentUser().getPhotoUrl().toString();                                                  
+
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
