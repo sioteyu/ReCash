@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.v("Sign in", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            Intent intent = new Intent(MainActivity.this, NavActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("url", mAuth.getCurrentUser().getPhotoUrl().toString());
                             bundle.putString("name", mAuth.getCurrentUser().getDisplayName());
