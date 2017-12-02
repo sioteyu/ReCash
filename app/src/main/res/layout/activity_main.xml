@@ -63,6 +63,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:background="#017FFF"
+            android:textColor="#fff"
             android:text="Sign in"
             app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +75,17 @@
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Sign Up" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="#017FFF"
+            android:textColor="#fff"
+            android:text="Sign Up"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     </LinearLayout>
 
