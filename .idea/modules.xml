@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ReCash.iml" filepath="$PROJECT_DIR$/ReCash.iml" />
+      <module fileurl="file://C:\Users\Michael\Documents\Programming\UHACK\ReCash.iml" filepath="C:\Users\Michael\Documents\Programming\UHACK\ReCash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UHACK.iml" filepath="$PROJECT_DIR$/UHACK.iml" />
       <module fileurl="file://C:\Users\John\AndroidStudioProjects\ReCash\UHACK.iml" filepath="C:\Users\John\AndroidStudioProjects\ReCash\UHACK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
