@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 signIn();
             }
         });
+
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+
     }
 
     private void signIn() {

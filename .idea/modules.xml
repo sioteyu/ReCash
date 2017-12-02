@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GoogleSignIn.iml" filepath="$PROJECT_DIR$/GoogleSignIn.iml" />
+      <module fileurl="file://C:\Users\Michael\Documents\Programming\UHACK\GoogleSignIn.iml" filepath="C:\Users\Michael\Documents\Programming\UHACK\GoogleSignIn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UHACK.iml" filepath="$PROJECT_DIR$/UHACK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Michael\Documents\Programming\UHACK\app\app.iml" filepath="C:\Users\Michael\Documents\Programming\UHACK\app\app.iml" />
     </modules>
   </component>
 </project>
