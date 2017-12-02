@@ -45,11 +45,8 @@ public class NavActivity extends AppCompatActivity
 
     private TextView name;
     private TextView email;
-<<<<<<< HEAD
     private static final int LOCATION_REQUEST_CODE = 1;
-=======
     private TextView coins;
->>>>>>> e62a3f09b0b61a1706ad9b6c616f1cb0318691d7
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private StorageReference storageReference;
