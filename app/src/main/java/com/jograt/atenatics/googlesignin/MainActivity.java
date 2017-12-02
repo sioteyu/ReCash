@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("ReCash");
+
         mAuth = FirebaseAuth.getInstance();
 
         mGooglebtn = (SignInButton)findViewById(R.id.googleSignin);
