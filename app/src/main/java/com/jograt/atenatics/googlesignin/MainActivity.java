@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
         //photo url
         String photoUrl = mAuth.getCurrentUser().getPhotoUrl().toString();                                                  
 
@@ -103,9 +103,14 @@ public class MainActivity extends AppCompatActivity {
                             Log.v("Sign in", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("url", mAuth.getCurrentUser().getPhotoUrl().toString());
+                            bundle.putString("name", mAuth.getCurrentUser().getDisplayName());
+                            bundle.putString("email", mAuth.getCurrentUser().getEmail());
+
+                            intent.putExtras(bundle);
+
                             startActivity(intent);
-                            Toast.makeText(MainActivity.this, "You are : " + user,
-                                    Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Sign in", "signInWithCredential:failure", task.getException());
