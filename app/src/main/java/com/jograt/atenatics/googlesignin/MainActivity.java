@@ -1,4 +1,5 @@
 package com.jograt.atenatics.googlesignin;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private SignInButton mGooglebtn;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthlistener;
+    private ProgressDialog progressDialog;
     final static int RC_SIGN_IN = 1;
 
     @Override
@@ -37,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
         setTitle("ReCash");
 
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.setTitle("SIGNING IN");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mAuth = FirebaseAuth.getInstance();
 
         mGooglebtn = (SignInButton)findViewById(R.id.googleSignin);
@@ -64,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn() {
+        progressDialog.show();
+        progressDialog.setCancelable(false);
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -84,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             }else{
-
+                progressDialog.dismiss();
             }
         }
     }
@@ -110,7 +117,9 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtras(bundle);
 
                             startActivity(intent);
+                            finish();
                         } else {
+                            progressDialog.dismiss();
                             // If sign in fails, display a message to the user.
                             Log.w("Sign in", "signInWithCredential:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
