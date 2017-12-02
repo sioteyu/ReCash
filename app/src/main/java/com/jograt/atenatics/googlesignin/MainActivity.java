@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(final GoogleSignInAccount account) {
-        //photo url
-        String photoUrl = mAuth.getCurrentUser().getPhotoUrl().toString();                                                  
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -107,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                             bundle.putString("url", mAuth.getCurrentUser().getPhotoUrl().toString());
                             bundle.putString("name", mAuth.getCurrentUser().getDisplayName());
                             bundle.putString("email", mAuth.getCurrentUser().getEmail());
+                            bundle.putString("id", mAuth.getCurrentUser().getUid());
 
                             intent.putExtras(bundle);
 
