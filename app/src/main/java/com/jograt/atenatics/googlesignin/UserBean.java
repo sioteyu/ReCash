@@ -9,12 +9,14 @@ public class UserBean {
     private String email;
     private int cash;
     private String id;
+    private String url;
 
-    public UserBean(String user, String email, int cash, String id){
+    public UserBean(String user, String email, int cash, String id, String url){
         this.user = user;
         this.email = email;
         this.cash = cash;
         this.id = id;
+        this.url = url;
     }
 
     public String getUser() {
@@ -47,5 +49,13 @@ public class UserBean {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
