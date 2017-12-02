@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -44,12 +45,17 @@ public class NavActivity extends AppCompatActivity
 
     private TextView name;
     private TextView email;
+<<<<<<< HEAD
     private static final int LOCATION_REQUEST_CODE = 1;
+=======
+    private TextView coins;
+>>>>>>> e62a3f09b0b61a1706ad9b6c616f1cb0318691d7
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private StorageReference storageReference;
     private DatabaseReference db;
     private UserBean bean;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +85,26 @@ public class NavActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
         }
     }
 
@@ -116,11 +137,6 @@ public class NavActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_history) {
 
-        } else if (id == R.id.nav_profile){
-            ProfileFragment fragment = new ProfileFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction  = fragmentManager.beginTransaction();
-            transaction.replace(R.id.fragment, fragment).commit();
         } else if (id == R.id.nav_share) {
 
         }
@@ -158,6 +174,7 @@ public class NavActivity extends AppCompatActivity
             bmImage = (ImageView)findViewById(R.id.imageView);
             email = (TextView)findViewById(R.id.email);
             name = (TextView)findViewById(R.id.name);
+            coins= (TextView)findViewById(R.id.coins);
 
 
             db.child(getIntent().getExtras().getString("id")).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -178,6 +195,9 @@ public class NavActivity extends AppCompatActivity
                                 getIntent().getExtras().getString("url"));
                         db.child(bean.getId()).setValue(bean);
                     }
+                    name.setText(getIntent().getExtras().getString("name"));
+                    email.setText(getIntent().getExtras().getString("email"));
+                    coins.setText("ReCash Coins: " + bean.getCash());
                 }
 
                 @Override
@@ -186,8 +206,6 @@ public class NavActivity extends AppCompatActivity
                 }
             });
 
-            name.setText(getIntent().getExtras().getString("name"));
-            email.setText(getIntent().getExtras().getString("email"));
             bmImage.setImageBitmap(result);
 
             if(hasLocationPermission()){
