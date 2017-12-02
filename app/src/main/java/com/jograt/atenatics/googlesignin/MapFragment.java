@@ -12,6 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -48,7 +49,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         LatLng manila = new LatLng(14.5995124, 120.9842195);
         mMap.addMarker(new MarkerOptions().position(manila).title("1730 Paterno St., Manila City"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(manila));
-       mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
 
          @Override
             public boolean onMarkerClick(Marker marker) {
