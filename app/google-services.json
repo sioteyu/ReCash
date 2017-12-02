@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "912332760631",
+    "firebase_url": "https://uhackstorage.firebaseio.com",
+    "project_id": "uhackstorage",
+    "storage_bucket": "uhackstorage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912332760631:android:0b3c0bca9b6308cb",
+        "android_client_info": {
+          "package_name": "com.jograt.atenatics.googlesignin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912332760631-8hc8gug0pcoqn20rbu9q4hckvlr8ls5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jograt.atenatics.googlesignin",
+            "certificate_hash": "755d055e9be7346339a5c0087fdaa754a1998379"
+          }
+        },
+        {
+          "client_id": "912332760631-bo3kpikjcfi801bt3i3he8uqusbaf9gt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4VdNjrNYd5_pjwkHP5WgAtot4H5xZcV4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912332760631-bo3kpikjcfi801bt3i3he8uqusbaf9gt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
