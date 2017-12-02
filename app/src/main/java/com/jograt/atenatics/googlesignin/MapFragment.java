@@ -57,6 +57,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(manila).title("1730 Paterno St., Manila City"));
         mMap.addMarker(new MarkerOptions().position(quiapo).title("1730 Paterno St., Manila City"));
         mMap.addMarker(new MarkerOptions().position(manila1).title("1730 Paterno St., Manila City"));
+        mMap.addMarker(new MarkerOptions().position(manila2).title("1730 Paterno St., Manila City"));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(manila));
         mMap.setMyLocationEnabled(true);
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

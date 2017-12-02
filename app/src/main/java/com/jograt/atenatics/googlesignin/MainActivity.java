@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(MainActivity.this, "Connection eRROR", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
