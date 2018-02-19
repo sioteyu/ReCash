@@ -90,8 +90,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 bean = new TransactionBean(location.getLatitude(), location.getLongitude(), getArguments().getString("user"), "20", "buy");
                 db.child(db.push().getKey()).setValue(bean);
-//                mMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude()))
-//                        .title("Current Location"));
                 Toast.makeText(getActivity().getApplicationContext(), "BUY", Toast.LENGTH_SHORT).show();
             }
         });
@@ -127,7 +125,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
                     mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(dsp.child("latitude").getValue().toString()),
                             Double.parseDouble(dsp.child("longitude").getValue().toString())))
-                            .title(dsp.child("user").getValue().toString() + " is " + dsp.child("type").getValue().toString()+"ing"));
+                            .title(dsp.child("type").getValue().toString()+"ing"));
                 }
             }
 
