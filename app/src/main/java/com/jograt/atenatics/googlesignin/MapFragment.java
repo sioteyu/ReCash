@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -123,9 +124,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mMap.clear();
                 for (DataSnapshot dsp : dataSnapshot.getChildren()){
+<<<<<<< HEAD
                     mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(dsp.child("latitude").getValue().toString()),
                             Double.parseDouble(dsp.child("longitude").getValue().toString())))
                             .title(dsp.child("type").getValue().toString()+"ing"));
+=======
+                    if (dsp.child("type").getValue().toString().equals("buy")){
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(dsp.child("latitude").getValue().toString()),
+                                Double.parseDouble(dsp.child("longitude").getValue().toString())))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+
+                    }else {
+                        mMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(dsp.child("latitude").getValue().toString()),
+                                Double.parseDouble(dsp.child("longitude").getValue().toString())))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                    }
+>>>>>>> 4a3d0b90697d088cf5338e07e35723fc633189ac
                 }
             }
 

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.jograt.atenatics.googlesignin.NavActivity">
 
+<<<<<<< HEAD
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,6 +14,8 @@
 
     </android.support.design.widget.AppBarLayout>
 
+=======
+>>>>>>> 4a3d0b90697d088cf5338e07e35723fc633189ac
     <include layout="@layout/content_profile" />
 
 </android.support.design.widget.CoordinatorLayout>

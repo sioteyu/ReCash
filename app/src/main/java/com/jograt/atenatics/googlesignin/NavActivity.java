@@ -188,6 +188,7 @@ public class NavActivity extends AppCompatActivity{
                             Toast.makeText(this, "Location Access Denied! Current location couldn't be found.", Toast.LENGTH_SHORT).show();
                             finish();
                         }
+                        finish();
                     }
                 }
                 break;
